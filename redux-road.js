@@ -16,16 +16,15 @@ const gameReducer = (state = initialWagonState, action) => {
         }
 
         case 'travel': {
-            if (state.supplies > 0) {
-                return {
-                    ...state,
-                    supplies: state.supplies - (20 * action.payload),
-                    distance: state.distance + (10 * action.payload),
-                    days: action.payload
-                }
-            } else if (state.supplies <= -1) {
-                return [...state]
-            }  
+            if (state.supplies < 0) {
+                return state
+            }
+            return {
+                ...state,
+                supplies: state.supplies - (20 * action.payload),
+                distance: state.distance + (10 * action.payload),
+                days: state.days + action.payload
+            }
         }
 
         case 'tippedWagon': {
@@ -45,24 +44,30 @@ const gameReducer = (state = initialWagonState, action) => {
 
 let wagon = gameReducer(undefined, {});
 
-wagon = gameReducer(wagon, {
+wagonMoveOne = gameReducer(wagon, {
     type: 'travel',
     payload: 1
 })
 
-wagon = gameReducer(wagon, {
+wagonMoveTwo = gameReducer(wagon, {
     type: 'gather'
 })
 
-wagon = gameReducer(wagon, {
+wagonMoveThree = gameReducer(wagon, {
     type: 'tippedWagon'
 })
 
-wagon = gameReducer(wagon, {
+wagonMoveFour = gameReducer(wagon, {
     type: 'travel',
     payload: 3
 })
 
+wagonMoveFour = gameReducer(wagon, {
+    type: 'travel',
+    payload: 10
+})
 
-console.log(wagon);
-
+console.log(wagonMoveOne);
+console.log(wagonMoveTwo);
+console.log(wagonMoveThree);
+console.log(wagonMoveFour);
