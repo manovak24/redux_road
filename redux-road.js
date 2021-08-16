@@ -1,7 +1,8 @@
 const initialWagonState = {
     supplies: 100,
     distance: 0,
-    days: 0
+    days: 0,
+    cash: 1000
 }
 
 const gameReducer = (state = initialWagonState, action) => {
@@ -11,7 +12,8 @@ const gameReducer = (state = initialWagonState, action) => {
                 ...state,
                 supplies: state.supplies + 15,
                 distance: state.distance,
-                days: state.days + 1
+                days: state.days + 1,
+                cash: state.cash
             }
         }
 
@@ -23,7 +25,8 @@ const gameReducer = (state = initialWagonState, action) => {
                 ...state,
                 supplies: state.supplies - (20 * action.payload),
                 distance: state.distance + (10 * action.payload),
-                days: state.days + action.payload
+                days: state.days + action.payload,
+                cash: state.cash - (50 * action.payload)
             }
         }
 
@@ -32,7 +35,8 @@ const gameReducer = (state = initialWagonState, action) => {
                 ...state,
                 supplies: state.supplies - 30,
                 distance: state.distance,
-                days: state.days + 1
+                days: state.days + 1,
+                cash: state.cash - 500
             }
         }
 
@@ -41,36 +45,6 @@ const gameReducer = (state = initialWagonState, action) => {
         }
     }
 }
-
-/*let wagon = gameReducer(undefined, {});
-
-wagonMoveOne = gameReducer(wagon, {
-    type: 'travel',
-    payload: 1
-})
-
-wagonMoveTwo = gameReducer(wagon, {
-    type: 'gather'
-})
-
-wagonMoveThree = gameReducer(wagon, {
-    type: 'tippedWagon'
-})
-
-wagonMoveFour = gameReducer(wagon, {
-    type: 'travel',
-    payload: 3
-})
-
-wagonMoveFour = gameReducer(wagon, {
-    type: 'travel',
-    payload: 10
-})
-
-console.log(wagonMoveOne);
-console.log(wagonMoveTwo);
-console.log(wagonMoveThree);
-console.log(wagonMoveFour);*/
 
 let wagon = gameReducer(undefined, {});
 console.log(wagon);
