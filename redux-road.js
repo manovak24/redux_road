@@ -20,14 +20,16 @@ const gameReducer = (state = initialWagonState, action) => {
         case 'travel': {
             if (state.supplies - 20 * action.payload < 0) {
                 return state
+            } else {
+                return {
+                    ...state,
+                    supplies: state.supplies - (20 * action.payload),
+                    distance: state.distance + (10 * action.payload),
+                    days: state.days + action.payload,
+                    cash: state.cash - (50 * action.payload)
+                }
             }
-            return {
-                ...state,
-                supplies: state.supplies - (20 * action.payload),
-                distance: state.distance + (10 * action.payload),
-                days: state.days + action.payload,
-                cash: state.cash - (50 * action.payload)
-            }
+            
         }
 
         case 'tippedWagon': {
@@ -62,6 +64,18 @@ wagon = gameReducer(wagon, action);
 console.log(wagon);
 
 action = { type: 'travel', payload: 3 };
+wagon = gameReducer(wagon, action);
+console.log(wagon);
+
+action = { type: 'travel', payload: 1 };
+wagon = gameReducer(wagon, action);
+console.log(wagon);
+
+action = { type: 'gather', payload: 0 };
+wagon = gameReducer(wagon, action);
+console.log(wagon);
+
+action = { type: 'gather', payload: 0 };
 wagon = gameReducer(wagon, action);
 console.log(wagon);
 
